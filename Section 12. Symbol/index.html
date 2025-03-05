@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Status Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .task-container {
+            padding: 15px;
+            border: 1px solid #ccc;
+            width: 300px;
+            border-radius: 5px;
+        }
+
+        .status {
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="task-container">
+        <h3>Task: Complete JavaScript Project</h3>
+        <p>Status: <span class="status">Open</span></p>
+        <label for="statusSelect">Change Status:</label>
+        <select id="statusSelect">
+            <option value="OPEN">Open</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="HOLD">On Hold</option>
+            <option value="CANCELED">Canceled</option>
+        </select>
+    </div>
+
+    <script>
+        // Define unique task statuses using Symbols
+        let statuses = {
+            OPEN: Symbol('Open'),
+            IN_PROGRESS: Symbol('In progress'),
+            COMPLETED: Symbol('Completed'),
+            HOLD: Symbol('On hold'),
+            CANCELED: Symbol('Canceled')
+        };
+
+        // Task object with status control
+        let task = {
+            name: "Complete JavaScript Project",
+            status: statuses.OPEN, // Default status
+
+            // Update status method
+            setStatus(newStatus) {
+                this.status = statuses[newStatus]; // Update status using the symbol reference
+                document.querySelector(".status").textContent = newStatus.replace('_', ' '); // Update UI
+            }
+        };
+
+        // Event Listener for status change
+        document.getElementById("statusSelect").addEventListener("change", function () {
+            task.setStatus(this.value);
+        });
+    </script>
+
+</body>
+
+</html>
